@@ -1,0 +1,56 @@
+{
+    "units" : {
+        "default": "standart",
+        "available": {
+            "metric": "metric",
+            "standart": "standart",
+            "imperial": "imperial"
+        }
+    },
+    "mode" :{
+        "default": "json",
+        "available": {
+            "xml": "xml",
+            "json": "json",
+            "html": "html"
+        }
+    },
+    "lang" : {
+        "default": "en",
+        "available": {
+            "ar": "ar", 
+            "bg": "bg", 
+            "ca": "ca", 
+            "cz": "cz", 
+            "de": "de", 
+            "el": "el", 
+            "en": "en", 
+            "fa": "fa", 
+            "fi": "fi", 
+            "fr": "fr", 
+            "gl": "gl", 
+            "hr": "hr", 
+            "hu": "hu", 
+            "it": "it", 
+            "ja": "ja", 
+            "kr": "kr", 
+            "la": "la", 
+            "lt": "lt", 
+            "mk": "mk", 
+            "nl": "nl", 
+            "pl": "pl", 
+            "pt": "pt", 
+            "ro": "ro", 
+            "ru": "ru", 
+            "se": "se", 
+            "sk": "sk", 
+            "sl": "sl", 
+            "es": "es", 
+            "tr": "tr", 
+            "ua": "ua", 
+            "vi": "vi", 
+            "zh_cn": "zh_cn",
+            "zh_tw": "zh_tw"
+        }
+    }
+}
