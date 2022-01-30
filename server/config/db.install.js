@@ -23,6 +23,7 @@ exports.installCore = mongoose => {
     }
 
     bcrypt.hash(PASSWORD, salt, (err, hash) => {
+      
       if (err) {
         return console.error('no crypt hash', err)
       }

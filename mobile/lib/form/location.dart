@@ -4,6 +4,9 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:http/http.dart' as http;
 import "package:weather/openweathermap/client.dart";
 
+/**
+ * 
+ */
 class LocationForm extends StatefulWidget {
   LocationForm({Key key, this.title}) : super(key: key);
   final String title;
@@ -11,6 +14,9 @@ class LocationForm extends StatefulWidget {
   _LocationFormState createState() => _LocationFormState();
 }
 
+/**
+ * 
+ */
 class _LocationFormState extends State<LocationForm> {
   Future<LocationResponce> futureLocationResponce;
   Future<WeatherResponce> futureWeatherResponce;
@@ -61,16 +67,19 @@ class _LocationFormState extends State<LocationForm> {
     return Form(
       key: _formKey,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          // locationInputElement(context),
-          searchButtonElement(),
-        ],
-      ),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            locationInputElement(context),
+            searchButtonElement()
+          ]),
     );
   }
 }
 
+/**
+ * 
+ */
 class WeatherResponce {
   dynamic responce;
   // constructor
@@ -83,22 +92,24 @@ class WeatherResponce {
   }
 }
 
+/**
+ * 
+ */
 Future<WeatherResponce> futureFetchWeather() async {
-  Uri uri = OpenWeatherMapClient()
-      .buildRequest("weather", "Moscow,ru");
-
-  print(uri);
-
+  Uri uri = OpenWeatherMapClient().buildRequest("weather", "Moscow,ru");
+  // print(uri);
   final response = await http.get(uri.toString());
 
   if (response.statusCode == 200) {
     print(response.body);
     return WeatherResponce(responce: response.body);
-  } else {
-    throw Exception('Failed to fetch weather');
   }
+  throw Exception('Failed to fetch weather');
 }
 
+/**
+ * 
+ */
 class LocationResponce {
   dynamic responce;
   // constructor
@@ -111,14 +122,23 @@ class LocationResponce {
   }
 }
 
-Future<LocationResponce> futureFetchLocation(pattern) async {
-  final String baseUrl =
-      'http://192.168.1.52:8000/api/weather/autocomplite/location';
-  final response = await http.post(baseUrl, body: {'location': pattern});
+/**
+ *
+ */
+Future<LocationResponce> futureFetchLocation(String pattern) async {
+  Uri uri = Uri(
+      scheme: "http",
+      host: "192.168.50.52",
+      port: 8000,
+      path: "/api/weather/autocomplite/location");
+
+  print(uri);
+  final response = await http.post(uri.toString(), body: {'location': pattern});
 
   if (response.statusCode == 200) {
+    print(response.body);
     return LocationResponce(responce: response.body);
-  } else {
-    throw Exception('Failed to fetch suggetion');
   }
+
+  throw Exception('Failed to fetch suggetion');
 }

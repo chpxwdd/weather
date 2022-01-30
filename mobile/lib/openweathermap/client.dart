@@ -3,9 +3,9 @@ class OpenWeatherMapClient {
   final String apiHost = "api.openweathermap.org";
   final String apiPath = "data/2.5/";
   final String apiProtocol = "https";
-  final int apiPort = 80;
+  final int apiPort = 443;
 
-  final Map<String, String> defaultOptions = {
+  final Map<String, dynamic> defaultOptions = {
     "appid": "c15053e7a024be38ee66e8c9cc995324",
     "mode": "json",
     "lang": "en",
@@ -14,7 +14,7 @@ class OpenWeatherMapClient {
 
   Uri buildRequest(String method, String q) {
 
-    Map params = {"q": q};
+    Map<String, dynamic> params = {"q": q};
     params.addAll(this.defaultOptions);
 
     return new Uri(
