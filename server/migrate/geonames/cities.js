@@ -27,7 +27,6 @@ mongoose
 							.findOne({ region: city.region_id })
 							.exec()
 							.then(function(region) {
-
 								const itemGeoCity = new modelGeoCity({
 									city: Number(city.city_id),
 									country: Number(city.country_id),
@@ -68,20 +67,20 @@ mongoose
 										cz: !city.area_cz ? null : String(city.area_cz),
 									},
 									region: {
-										ru: !city.region_ru ? null: String(city.region_ru),
-										ua: !city.region_ua ? null: String(city.region_ua),
-										be: !city.region_be ? null: String(city.region_be),
-										en: !city.region_en ? null: String(city.region_en),
-										es: !city.region_es ? null: String(city.region_es),
-										pt: !city.region_pt ? null: String(city.region_pt),
-										de: !city.region_de ? null: String(city.region_de),
-										fr: !city.region_fr ? null: String(city.region_fr),
-										it: !city.region_it ? null: String(city.region_it),
-										pl: !city.region_pl ? null: String(city.region_pl),
-										ja: !city.region_ja ? null: String(city.region_ja),
-										lt: !city.region_lt ? null: String(city.region_lt),
-										lv: !city.region_lv ? null: String(city.region_lv),
-										cz: !city.region_cz ? null: String(city.region_cz),
+										ru: !city.region_ru ? null : String(city.region_ru),
+										ua: !city.region_ua ? null : String(city.region_ua),
+										be: !city.region_be ? null : String(city.region_be),
+										en: !city.region_en ? null : String(city.region_en),
+										es: !city.region_es ? null : String(city.region_es),
+										pt: !city.region_pt ? null : String(city.region_pt),
+										de: !city.region_de ? null : String(city.region_de),
+										fr: !city.region_fr ? null : String(city.region_fr),
+										it: !city.region_it ? null : String(city.region_it),
+										pl: !city.region_pl ? null : String(city.region_pl),
+										ja: !city.region_ja ? null : String(city.region_ja),
+										lt: !city.region_lt ? null : String(city.region_lt),
+										lv: !city.region_lv ? null : String(city.region_lv),
+										cz: !city.region_cz ? null : String(city.region_cz),
 									},
 								})
 
@@ -90,6 +89,7 @@ mongoose
 									.then(res => console.log('Save SUCCESS id=' + city.city_id))
 									.catch(err => console.error(err.message))
 							})
+
 							.catch(function(err) {
 								console.log(err)
 							})
@@ -98,6 +98,9 @@ mongoose
 						console.log(err)
 					})
 			})
+
+		console.log('Load success')
+
 	})
 	.catch(err => {
 		console.log('Can not connect to the database' + err)
