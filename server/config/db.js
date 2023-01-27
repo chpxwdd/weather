@@ -1,7 +1,8 @@
 module.exports = {
-  path: 'mongodb://localhost:27017/weather',
-  options: {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-  },
+	path: 'mongodb://localhost:27017/weather',
+	options: {
+		useCreateIndex: true,
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+	},
 }
