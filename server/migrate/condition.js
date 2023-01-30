@@ -16,7 +16,6 @@ const WEATHER_CONDITION = [
 	{ main: 'Thunderstorm', code: 230, description: 'thunderstorm with light drizzle', icon: '11' },
 	{ main: 'Thunderstorm', code: 231, description: 'thunderstorm with drizzle', icon: '11' },
 	{ main: 'Thunderstorm', code: 232, description: 'thunderstorm with heavy drizzle', icon: '11' },
-
 	{ main: 'Drizzle', code: 300, description: 'light intensity drizzle', icon: '09' },
 	{ main: 'Drizzle', code: 301, description: 'drizzle', icon: '09' },
 	{ main: 'Drizzle', code: 302, description: 'heavy intensity drizzle', icon: '09' },
@@ -26,7 +25,6 @@ const WEATHER_CONDITION = [
 	{ main: 'Drizzle', code: 313, description: 'shower rain and drizzle', icon: '09' },
 	{ main: 'Drizzle', code: 314, description: 'heavy shower rain and drizzle', icon: '09' },
 	{ main: 'Drizzle', code: 321, description: 'shower drizzle', icon: '09' },
-
 	{ main: 'Rain', code: 500, description: 'light rain', icon: '10' },
 	{ main: 'Rain', code: 501, description: 'moderate rain', icon: '10' },
 	{ main: 'Rain', code: 502, description: 'heavy intensity rain', icon: '10' },
@@ -37,7 +35,6 @@ const WEATHER_CONDITION = [
 	{ main: 'Rain', code: 521, description: 'shower rain', icon: '09' },
 	{ main: 'Rain', code: 522, description: 'heavy intensity shower rain', icon: '09' },
 	{ main: 'Rain', code: 531, description: 'ragged shower rain', icon: '09' },
-
 	{ main: 'Snow', code: 600, description: 'light snow', icon: '13' },
 	{ main: 'Snow', code: 601, description: 'Snow', icon: '13' },
 	{ main: 'Snow', code: 602, description: 'Heavy snow', icon: '13' },
@@ -49,7 +46,6 @@ const WEATHER_CONDITION = [
 	{ main: 'Snow', code: 620, description: 'Light shower snow', icon: '13' },
 	{ main: 'Snow', code: 621, description: 'Shower snow', icon: '13' },
 	{ main: 'Snow', code: 622, description: 'Heavy shower snow', icon: '13' },
-
 	{ main: 'Mist', code: 701, description: 'mist', icon: '50' },
 	{ main: 'Smoke', code: 711, description: 'Smoke', icon: '50' },
 	{ main: 'Haze', code: 721, description: 'Haze', icon: '50' },
@@ -60,9 +56,7 @@ const WEATHER_CONDITION = [
 	{ main: 'Ash', code: 762, description: 'volcanic ash', icon: '50' },
 	{ main: 'Squall', code: 771, description: 'squalls', icon: '50' },
 	{ main: 'Tornado', code: 781, description: 'tornado', icon: '50' },
-
 	{ main: 'Clear', code: 800, description: 'clear sky', icon: '01' },
-
 	{ main: 'Clouds', code: 801, description: 'few clouds: 11-24%', icon: '02' },
 	{ main: 'Clouds', code: 802, description: 'scattered clouds: 25-50%', icon: '03' },
 	{ main: 'Clouds', code: 803, description: 'broken clouds: 51-84%', icon: '04' },
