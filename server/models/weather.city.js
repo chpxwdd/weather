@@ -5,14 +5,14 @@ const schemaWeatherCity = new Schema()
 schemaWeatherCity.set('collection', 'WeatherCity')
 schemaWeatherCity.add({
 	id: Schema.Types.ObjectId,
-	code: { type: Number, required: true, index: true },
+	country_ref: { type: Schema.Types.ObjectId, ref: 'WeatherCountry' },
+	id: { type: Number, required: true, index: true },
 	name: { type: String, required: true },
-	country: {
-		type: Schema.Types.ObjectId,
-		ref: 'WeatherCountry',
-		default: null,
+	state: { type: String, default: null },
+	coord: {
+		lon: { type: Number, default: null },
+		lat: { type: Number, default: null },
 	},
-	coord: { type: Map, of: Schema.Types.Decimal128 },
 })
 
 module.exports = mongoose.model('WeatherCity', schemaWeatherCity)

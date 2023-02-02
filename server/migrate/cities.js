@@ -1,54 +1,47 @@
-require("../models/weather.country.js");
-
 /**
  *
  * RUN this command from current file location
  *    node --max-old-space-size=8192 cities.js
  */
 
-const mongoose = require("mongoose");
-const config = require("../config/db");
+const mongoose = require('mongoose')
+const config = require('../config/db')
+const fs = require('fs')
+const JSONStream = require('JSONStream')
+require('../models/weather.city.js')
+require('../models/weather.country.js')
+
 mongoose
-  .connect(config.path, config.options)
-  .then(() => {
-    console.log("db connect");
-  })
-  .catch(err => {
-    console.log("Can not connect to the database" + err);
-  });
+	.connect(config.path, config.options)
+	.then(() => {
+		console.log('db connect')
 
-const modelWeatherCountry = mongoose.model("WeatherCountry");
+		// массив country[code] = ObjectId
+		const modelWeatherCountry = mongoose.model('WeatherCountry')
 
-modelWeatherCountry.find({}).then(countries => {
-  var countryCodes = [];
-  countries.forEach(country => {
-    countryCodes[country.code] = country._id;
-  });
-
-  require("fs").readFile("./cities.json", "utf8", (err, data) => {
-    const cities = JSON.parse(data);
-
-    if (!cities.length) {
-      return;
-    }
-
-    require("../models/weather.city.js");
-    const modelWeatherCity = mongoose.model("WeatherCity");
-
-    cities.forEach((city, index) => {
-      if (!city.name) {
-        return;
-      }
-
-      var itemWeatherCity = new modelWeatherCity({
-        code: city.id,
-        name: city.name,
-        country: countryCodes[String(city.country).toLowerCase()],
-        coord: city.coord
-      });
-      itemWeatherCity.save();
-    });
-  });
-});
-
-// node --max-old-space-size=16384 cities.js
+		let countryCodes = []
+		modelWeatherCountry
+			.find({})
+			.then(countries => {
+				countries.forEach(country => {
+					countryCodes[String(country.code).toLowerCase()] = String(country._id)
+				})
+				const modelWeatherCity = mongoose.model('WeatherCity')
+				fs.createReadStream('./cities.json')
+					.pipe(JSONStream.parse('*'))
+					.on('data', city => {
+						let weatherCity = new modelWeatherCity({
+							country_ref: countryCodes[String(city.country).toLowerCase()],
+							...city,
+						})
+						weatherCity.save()
+						console.log('success', code, city.name)
+					})
+			})
+			.catch(err => {
+				console.error(err)
+			})
+	})
+	.catch(err => {
+		console.log('Can not connect to the database' + err)
+	})

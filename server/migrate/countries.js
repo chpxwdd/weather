@@ -6,43 +6,42 @@
 
 const mongoose = require('mongoose')
 const config = require('../config/db')
+const fs = require('fs')
+const JSONStream = require('JSONStream')
+require('../models/weather.country.js')
 
 mongoose
-  .connect(config.path, config.options)
-  .then(res => {
-    console.log('Connect to the database succes')
-  })
-  .catch(err => {
-    console.log('Can not connect to the database' + err)
-  })
+	.connect(config.path, config.options)
+	.then(res => {
+		console.log('Connect to the database succes')
+		let countries
+		let keys
+		fs.createReadStream('./iso-3166-1.json')
+			.pipe(JSONStream.parse('*'))
+			.on('data', countryObj => {
+				countries = countryObj
+				keys = Object.keys(countryObj)
+				const modelWeatherCountry = mongoose.model('WeatherCountry')
+				Object.keys(countryObj).forEach((key, i) => {
+					// if (key !== 'AD') return
 
-const fs = require('fs')
-const { WeatherCountry } = require('../models/weather.country')
+					let country = countryObj[key]
+					// console.log(country)
+					var weatherCountry = new modelWeatherCountry({
+						code: key,
+						...country,
+					})
+					// console.log(i, key)
+					// console.log(weatherCountry)
+					weatherCountry.save()
+					// console.log('SUCCESS: code ', country['CountryCodes']['iso2'], 'country ', country['Name'])
+				})
+			})
 
-const _countries = JSON.parse(fs.readFileSync('./countries.json', 'utf8'))
-const countriesData = JSON.parse(fs.readFileSync('./iso-3166-1.json', 'utf8'))
-const external = countriesData['Results']
-const countries =  _countries.items;
-
-if (countries.length && external) {
-  const modelWeatherCountry = mongoose.model('WeatherCountry')
-
-  countries.forEach((country, i) => {
-    var code = String(country.code).toUpperCase();
-    console.log("iterate ", i);
-    console.log("country ", country);
-    
-    console.log("code ", code);
-    var weatherCountry = new modelWeatherCountry({
-      code: country.code,
-      name: external[code]['Name'],
-      names: external[code]['Names'],
-      capital: external[code]['Capital'] ? external[code]['Capital']['Name'] : null,
-      notes: external[code]['Notes'],
-      geo_point: external[code]['GeoPt'],
-      geo_rect: external[code]['GeoRectangle'],
-    })
-
-    weatherCountry.save()
-  })
-}
+		// keys.forEach(key => {
+		// 	console.log(key)
+		// })
+	})
+	.catch(err => {
+		console.log('Can not connect to the database' + err)
+	})
