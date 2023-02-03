@@ -1,41 +1,34 @@
 const modelWeatherCity = require('../models/weather.city.js')
 
-/**
- *   Возвращает выборку городов по части названия
- */
 exports.autocompliteLocation = (req, res) => {
-	var location = req.body.location
+	const { location, limit } = req.body
 
 	modelWeatherCity
 		.find({ name: { $regex: '^' + location, $options: 'i' } })
-		// .select('code name -_id')
-		.limit(12)
+		.select('coord name -_id')
+		.limit(limit)
 		.populate({
 			path: 'country_ref',
-			// select: 'code name -_id',
+			select: 'Name CountryCodes.iso2 -_id',
 			options: {
 				sort: {
-					// 'country_ref.code': 'desc',
-					'country_ref.name': 'asc',
+					'country_ref.code': 'asc',
 				},
 			},
-		}) // select ONLY field code from country collection
-
+		})
 		.exec() // callback run
 		.then(cities => {
-			console.log(cities)
-			// формирование необходимого ответа
-			var arr = []
-			cities.forEach(city => {
-				arr.push({
-					code: city.code,
-					title: String(city.country_ref.code)
-						.toUpperCase()
-						.concat(', ')
-						.concat(String(city.name)),
+			res.send(
+				cities.map(city => {
+					return {
+						countryCode: city.country_ref.CountryCodes.iso2,
+						country: city.country_ref.Name,
+						name: city.name,
+						coord: city.coord,
+					}
 				})
-			})
-			res.send(arr)
+				// console.log(arr)
+			)
 		})
 		.catch(err => {
 			res.status(500).send({

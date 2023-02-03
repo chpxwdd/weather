@@ -1,4 +1,4 @@
-const modelWeatherCountry = require('../models/_weather.country.js')
+const modelWeatherCountry = require('../models/weather.country.js')
 
 exports.findAll = (req, res) => {
 	modelWeatherCountry
